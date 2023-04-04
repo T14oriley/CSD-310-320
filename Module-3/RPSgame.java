@@ -1,3 +1,6 @@
+//CSD320 Tyler O'Riley 04/03/2023 Assignment 3
+//Programming a rock, paper, scissors game against a computer
+
 import java.util.Scanner;
 
 class RPSgame {
@@ -28,7 +31,7 @@ class RPSgame {
         break;
     }
     
-    //
+    //Randomizer for computer selection
     int comp = (int) (Math.random() * 3 + 1);
     switch (comp) {
       case 1:
