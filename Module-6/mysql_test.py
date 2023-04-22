@@ -1,3 +1,6 @@
+#CSD310 Tyler O'Riley 04/19/2023 Assignment 6_2
+#Example code for connecting MySQL database using provided python code
+
 import mysql.connector
 from mysql.connector import errorcode
 
