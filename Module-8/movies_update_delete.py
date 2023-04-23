@@ -14,7 +14,7 @@ config = {
 
 db = mysql.connector.connect(**config)
 
-title = "DISPLAYING FILMS AFTER DELETE"
+title = "DISPLAYING FILMS AFTER UPDATE- Changed Alien to Horror"
 title2 = "DISPLAYING FILMS AFTER DELETE"
 
 
