@@ -15,7 +15,7 @@ config = {
 db = mysql.connector.connect(**config)
 
 title = "DISPLAYING FILMS AFTER DELETE"
-title2 = "DISPLAYING FILMS AFTER INSERT"
+title2 = "DISPLAYING FILMS AFTER DELETE"
 
 
 #cursor = db.cursor()
@@ -51,7 +51,7 @@ def show_films(cursor, title, title2): #Query function to join tables to display
     
     #Query to delete Gladiator by its ID
     cursor.execute("""
-                DELETE FROM film WHERE FILM_ID = 1
+                DELETE FROM film WHERE film_name = 'Gladiator'
                     """)
 
     #Query to select updated table data for display
