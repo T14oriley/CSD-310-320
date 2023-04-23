@@ -21,7 +21,7 @@ title2 = "DISPLAYING FILMS AFTER INSERT"
 #cursor = db.cursor()
 cursor = db.cursor(buffered=True)
 
-def show_films(cursor, title, title2): #Iteration function to join tables to display various film attributes
+def show_films(cursor, title, title2): #Query function to join tables to display various film attributes
     cursor.execute("""
                 SELECT film_name AS Name, film_director AS Director, genre_name AS Genre, studio_name AS 'Studio Name' FROM film 
                 INNER JOIN genre ON film.genre_id=genre.genre_id 
@@ -35,22 +35,26 @@ def show_films(cursor, title, title2): #Iteration function to join tables to dis
     for film in films:
         print("Film Name: {}\nDirector: {}\nGenre Name ID: {}\nStudio Name: {}\n".format(film[0], film[1], film[2], film[3],))
 
-    cursor.execute("""
+    #Query to modify Alien to the Horror genre
+    cursor.execute(""" 
                 UPDATE film
                 INNER JOIN genre ON film.genre_id=genre.genre_id 
                 SET genre.genre_name = 'Horror'
                 WHERE film.film_name = 'Alien'
                 """)
     
+    #Query to insert The Mummy into the database
     cursor.execute("""
                 INSERT INTO film (film_id, film_name, film_releaseDate, film_runtime, film_director, studio_id, genre_id) 
                 VALUES (4, 'The Mummy', '1999', 124, 'Stephen Sommers', 3, 1)
                 """)
     
+    #Query to delete Gladiator by its ID
     cursor.execute("""
                 DELETE FROM film WHERE FILM_ID = 1
                     """)
 
+    #Query to select updated table data for display
     cursor.execute("""
                 SELECT film_name AS Name, film_director AS Director, genre_name AS Genre, studio_name AS 'Studio Name' FROM film 
                 INNER JOIN genre ON film.genre_id=genre.genre_id 
