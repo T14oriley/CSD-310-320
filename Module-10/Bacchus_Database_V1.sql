@@ -21,16 +21,16 @@ CREATE TABLE customer (
 	phone			INT             NOT NULL,
 	email			VARCHAR(75)     NOT NULL,
 	address1		VARCHAR(75)     NOT NULL,
-	address2		VARCHAR(75)     NOT NULL,
+	address2		VARCHAR(75)     NULL,
 	city			VARCHAR(75)     NOT NULL,
 	state			VARCHAR(75)     NOT NULL,
 	zip_code		INT             NOT NULL,
 	country			VARCHAR(75)     NOT NULL,
 	user_name		VARCHAR(75)     NOT NULL,
-	pass_word		VARCHAR(75)     NOT NULL,
-	order_status	BOOLEAN   		NOT NULL,
-	created_date	TIMESTAMP       NOT NULL,
-	modified_date	TIMESTAMP		NOT NULL,
+	pass_word		VARCHAR(75)     NULL,
+	order_status	VARCHAR(75)  	NOT NULL,
+	created_date	TIMESTAMP       NULL,
+	modified_date	TIMESTAMP		NULL,
 
 	 
 	PRIMARY KEY(customer_id)
@@ -38,22 +38,22 @@ CREATE TABLE customer (
 
  -- insert into customer table --
 INSERT INTO customer (first_name, last_name, phone, email, address1, city, state, zip_code, country,	user_name, order_status)
-VALUES ('Sammy', 'Way', '2625555555', 'sway@myemail.com', '3743 North Way', 'Madison', 'WI', '53558', 'USA', 'sway', 'active');
+VALUES ('Sammy', 'Way', '1625555555', 'sway@myemail.com', '3743 North Way', 'Madison', 'WI', '53558', 'USA', 'sway', 'active');
 
 INSERT INTO customer (first_name, last_name, phone, email, address1, city, state, zip_code, country,	user_name, order_status)
-VALUES ('Joe', 'Smith', '2395555343', 'joe.smith@email.com', '4739 South Way', 'Pampano Beach', 'FL', '33060', 'USA', 'jsmith', 'active');
+VALUES ('Joe', 'Smith', '1395555343', 'joe.smith@email.com', '4739 South Way', 'Pampano Beach', 'FL', '33060', 'USA', 'jsmith', 'active');
 
 INSERT INTO customer (first_name, last_name, phone, email, address1, city, state, zip_code, country,	user_name, order_status)
-VALUES ('Richard', 'Petterson', '9715555774', 'rpetterson@myemail.com', '1 East Capital', 'Portland', 'OR', '97035', 'USA', 'rpetterson', 'inactive');
+VALUES ('Richard', 'Petterson', '1715555774', 'rpetterson@myemail.com', '1 East Capital', 'Portland', 'OR', '97035', 'USA', 'rpetterson', 'inactive');
 
 INSERT INTO customer (first_name, last_name, phone, email, address1, city, state, zip_code, country,	user_name, order_status)
-VALUES ('Shelby', 'Shellnath', '2125554455', 'ssnath@email.com', '4546 South Woods ', 'Madison', 'WI', '53558', 'USA', 'sway', 'active');
+VALUES ('Shelby', 'Shellnath', '1125554455', 'ssnath@email.com', '4546 South Woods ', 'Madison', 'WI', '53558', 'USA', 'sway', 'active');
 
 INSERT INTO customer (first_name, last_name, phone, email, address1, city, state, zip_code, country,	user_name, order_status)
-VALUES ('Kate', 'Izon', '2095554312', 'kzon@email.com', '4343 West Way', 'Lancaster', 'CA', '93534', 'USA', 'kizon', 'active');
+VALUES ('Kate', 'Izon', '1095554312', 'kzon@email.com', '4343 West Way', 'Lancaster', 'CA', '93534', 'USA', 'kizon', 'active');
 
 INSERT INTO customer (first_name, last_name, phone, email, address1, city, state, zip_code, country,	user_name, order_status)
-VALUES ('Chris', 'Smith', '2105553223', 'chris.smith@email.com', '3485 Eastward', 'Houston', 'TX', '77001', 'USA', 'crsmith', 'active');
+VALUES ('Chris', 'Smith', '1105553223', 'chris.smith@email.com', '3485 Eastward', 'Houston', 'TX', '77001', 'USA', 'crsmith', 'active');
   
   
  -- drop supplies_info table to recreate --
@@ -64,8 +64,8 @@ CREATE TABLE supplies_info (
 	supplies_id		INT				NOT NULL		AUTO_INCREMENT,
 	sup_name		VARCHAR(75)		NOT NULL,
 	supplies_description VARCHAR(75)	NOT NULL,
-	created_date		TIMESTAMP		NOT NULL,
-	modified_date		TIMESTAMP		NOT NULL,
+	created_date		TIMESTAMP		NULL,
+	modified_date		TIMESTAMP		NULL,
 
 
 	PRIMARY KEY(supplies_id)
@@ -93,20 +93,20 @@ VALUES ('tubing ', 'wine tubing');
  -- drop supplies_inventory table to recreate --
 DROP TABLE IF EXISTS supplies_inventory;
 
-    -- create the supplier inventory detail table ---issue with foreign key , create table without
+    -- create the supplier inventory detail table ---
 CREATE TABLE supplier_inventory (
 	supplier_inventory_id		INT 				NOT NULL		AUTO_INCREMENT,
 	supplies_id		INT					NOT NULL,
 	initial_qty		DECIMAL(15,2)		NOT NULL,
 	current_qty		DECIMAL(15,2)		NOT NULL,
 	current_price	DECIMAL(15,2)		NOT NULL,
-	sale_price		DECIMAL(15,2)		NOT NULL,
-	created_date		TIMESTAMP		NOT NULL,
-	modified_date		TIMESTAMP		NOT NULL,
+	sale_price		DECIMAL(15,2)		NULL,
+	created_date		TIMESTAMP		NULL,
+	modified_date		TIMESTAMP		NULL,
 
 
 	PRIMARY KEY(supplier_inventory_id),
-	FOREIGN KEY (supplies_id) REFERENCES supplies(supplies_id)
+	FOREIGN KEY (supplies_id) REFERENCES supplies_info(supplies_id)
 );
 
 -- insert into supplier_inventory --
@@ -135,16 +135,18 @@ DROP TABLE IF EXISTS supplier;
 -- create the supplier table -- issue with foreign key , created table withou
 CREATE TABLE supplier (
 	supplier_id		INT				NOT NULL		AUTO_INCREMENT,
+    -- supplies_id		INT				NOT NULL,
 	comp_name		VARCHAR(75)		NOT NULL,
 	comp_address	VARCHAR(75)		NOT NULL,
+    city			VARCHAR(75)		NOT NULL,
+    state			VARCHAR(75)		NOT NULL,
 	comp_email		VARCHAR(75)		NOT NULL,
-	supplies_id		INT				NOT NULL,
-	created_date	TIMESTAMP		NOT NULL,
-	modified_date	TIMESTAMP		NOT NULL,
+	created_date	TIMESTAMP		NULL,
+	modified_date	TIMESTAMP		NULL,
 
 
-	PRIMARY KEY(supplier_id),
-	FOREIGN KEY (supplies_id) REFERENCES supplies(supplies_id) 
+	PRIMARY KEY(supplier_id)
+	-- FOREIGN KEY (supplies_id) REFERENCES supplies_info(supplies_id) 
 );
 
 -- insert into supplier --need help with adding supplies_id
@@ -166,11 +168,12 @@ CREATE TABLE invoice (
     supplier_id       INT 		NOT NULL,
     qty  DECIMAL(15,2) NOT NULL,
 	supplies_id				INT			NOT NULL,		
-	created_date		TIMESTAMP		NOT NULL,
-	modified_date		TIMESTAMP		NOT NULL,
+	created_date		TIMESTAMP		NULL,
+	modified_date		TIMESTAMP		NULL,
 
 	PRIMARY KEY(invoice_id),
-	FOREIGN KEY (supplier_id) REFERENCES supplier(supplier_id)
+	FOREIGN KEY (supplier_id) REFERENCES supplier(supplier_id),
+    FOREIGN KEY (supplies_id) REFERENCES supplies_info(supplies_id)
 );
 
  -- insert into invoice --
@@ -200,8 +203,8 @@ DROP TABLE IF EXISTS department;
 CREATE TABLE department (
 	department_id			INT 		NOT NULL		AUTO_INCREMENT,
 	dep_name			VARCHAR(75)		NOT NULL,
-	created_date		TIMESTAMP		NOT NULL,
-	modified_date		TIMESTAMP		NOT NULL,
+	created_date		TIMESTAMP		NULL,
+	modified_date		TIMESTAMP		NULL,
 
 	PRIMARY KEY(department_id));
 
@@ -233,8 +236,8 @@ CREATE TABLE employee (
 	hire_date			DATE		NOT NULL,
     department_id  	INT 		NOT NULL,
     working_hours_id INT NOT NULL,
-	created_date		TIMESTAMP		NOT NULL,
-	modified_date		TIMESTAMP		NOT NULL,
+	created_date		TIMESTAMP		NULL,
+	modified_date		TIMESTAMP		NULL,
 
 	PRIMARY KEY(employee_id)
 );
@@ -270,8 +273,8 @@ CREATE TABLE countries (
 	country_id		INT 			NOT NULL		AUTO_INCREMENT,
 	country		VARCHAR(75)		NOT NULL,	
     abbreviation VARCHAR(75)		NOT NULL,
-	created_date	TIMESTAMP 			NOT NULL,
-	modified_date	TIMESTAMP 			NOT NULL,
+	created_date	TIMESTAMP 			NULL,
+	modified_date	TIMESTAMP 			NULL,
 
 
 	PRIMARY KEY(country_id)
@@ -303,8 +306,8 @@ CREATE TABLE working_hours (
 	working_hours_id		INT 		NOT NULL		AUTO_INCREMENT,
 	work_description	VARCHAR(300)	NOT NULL,
 	hours_value				INT 		NOT NULL,
-	created_date		TIMESTAMP		NOT NULL,
-	modified_date		TIMESTAMP		NOT NULL,
+	created_date		TIMESTAMP		NULL,
+	modified_date		TIMESTAMP		NULL,
 
 	PRIMARY KEY(working_hours_id)
 );
@@ -327,14 +330,14 @@ DROP TABLE IF EXISTS shipping_address;
 CREATE TABLE shipping_address (
 	shipping_address_id	INT 			NOT NULL		AUTO_INCREMENT,
 	shipping_address1			VARCHAR(75)		NOT NULL,
-	shipping_address2			VARCHAR(75)		NOT NULL,
+	shipping_address2			VARCHAR(75)		NULL,
 	shipping_city				VARCHAR(75)		NOT NULL,
 	state_id				INT 	NOT NULL,
 	shipping_zipcode		CHAR(5) NOT NULL,
 	country_id			INT		NOT NULL,
 	customer_id			INT 			NOT NULL,
-	created_date		TIMESTAMP		NOT NULL,
-	modified_date		TIMESTAMP		NOT NULL,
+	created_date		TIMESTAMP		NULL,
+	modified_date		TIMESTAMP		NULL,
     
     PRIMARY KEY(shipping_address_id)
 );
@@ -366,35 +369,35 @@ DROP TABLE IF EXISTS billing_address;
 CREATE TABLE billing_address (
 	billing_address_id	INT 			NOT NULL		AUTO_INCREMENT,
 	billing_address1			VARCHAR(75)		NOT NULL,
-	billing_address2			VARCHAR(75)		NOT NULL,
+	billing_address2			VARCHAR(75)		NULL,
 	billing_city				VARCHAR(75)		NOT NULL,
 	state_id				INT 	NOT NULL,
 	billing_address_zipcode			CHAR(5) NOT NULL,
 	country_id			INT		NOT NULL,
 	customer_id			INT 			NOT NULL,
-	created_date		TIMESTAMP		NOT NULL,
-	modified_date		TIMESTAMP		NOT NULL,
+	created_date		TIMESTAMP		NULL,
+	modified_date		TIMESTAMP		NULL,
 
    PRIMARY KEY(billing_address_id)
 );
 
 
-INSERT INTO billing_address(billing_address1,billing_city,state_id,billing_zipcode,country_id,customer_id)
+INSERT INTO billing_address(billing_address1,billing_city,state_id,billing_address_zipcode,country_id,customer_id)
 VALUES ('3743 North Way','Madison',6,'53558',6,1); 
 
-INSERT INTO billing_address(billing_address1,billing_city,state_id,billing_zipcode,country_id,customer_id)
+INSERT INTO billing_address(billing_address1,billing_city,state_id,billing_address_zipcode,country_id,customer_id)
 VALUES ('4739 East Way','Pompano Beach',2,'33060',6,2); 
 
-INSERT INTO billing_address(billing_address1,billing_city,state_id,billing_zipcode,country_id,customer_id)
+INSERT INTO billing_address(billing_address1,billing_city,state_id,billing_address_zipcode,country_id,customer_id)
 VALUES ('1 East Capital','Portland',4,'97035',6,3); 
 
-INSERT INTO billing_address(billing_address1,billing_city,state_id,billing_zipcode,country_id,customer_id)
+INSERT INTO billing_address(billing_address1,billing_city,state_id,billing_address_zipcode,country_id,customer_id)
 VALUES ('4546 South Woods','New York',3,'10001',6,4); 
 
-INSERT INTO billing_address(billing_address1,billing_city,state_id,billing_zipcode,country_id,customer_id)
+INSERT INTO billing_address(billing_address1,billing_city,state_id,billing_address_zipcode,country_id,customer_id)
 VALUES ('4343 West Way','Lancaster',1,'93534',6,5); 
 
-INSERT INTO billing_address(billing_address1,billing_city,state_id,billing_zipcode,country_id,customer_id)
+INSERT INTO billing_address(billing_address1,billing_city,state_id,billing_address_zipcode,country_id,customer_id)
 VALUES ('3485 Eastward','Houston',5,'77001',6,6); 
 
  -- drop state table to recreate --
@@ -405,8 +408,8 @@ CREATE TABLE state (
 	state_id		INT 			NOT NULL		AUTO_INCREMENT,
 	state		VARCHAR(75)		NOT NULL,	
 	abbreviation		CHAR(11)		NOT NULL,	
-	created_date	TIMESTAMP,
-	modified_date	TIMESTAMP,
+	created_date	TIMESTAMP		NULL,
+	modified_date	TIMESTAMP		NULL	,
 
 
 	PRIMARY KEY(state_id)
@@ -440,8 +443,8 @@ CREATE TABLE c_order (
 	customer_id				INT 		NOT NULL,
 	shipping_address_id		INT 		NOT NULL,
 	billing_address_id		INT			NOT NULL,
-	created_date		TIMESTAMP		NOT NULL,
-	modified_date		TIMESTAMP		NOT NULL,
+	created_date		TIMESTAMP		NULL,
+	modified_date		TIMESTAMP		NULL,
 
 	PRIMARY KEY(order_id),
 	FOREIGN KEY (customer_id) REFERENCES customer(customer_id),
@@ -469,47 +472,6 @@ INSERT INTO c_order(customer_id,shipping_address_id,billing_address_id)
 VALUES(6,6,6);
 
 
- -- drop order_items table to recreate --
-DROP TABLE IF EXISTS order_items;
-
-    -- create the order items table 
-CREATE TABLE order_items (
-	order_items_id			INT 		NOT NULL		AUTO_INCREMENT,
-	order_id				INT			NOT NULL,
-	order_product_id		INT			NOT NULL,
-	qty						INT 		NOT NULL,
-	product_inventory_id	INT			NOT NULL,
-	delivery_id				INT 		NOT NULL,
-	created_date		TIMESTAMP		NOT NULL,
-	modified_date		TIMESTAMP		NOT NULL,
-
-	PRIMARY KEY(order_items_id),
-	FOREIGN KEY (order_id) REFERENCES c_order(order_id),
-	FOREIGN KEY (order_product_id) REFERENCES order_product(order_product_id),
-	FOREIGN KEY (product_inventory_id) REFERENCES product_inventory(product_inventory_id),
-	FOREIGN KEY (delivery_id) REFERENCES delivery(delivery_id)
-);
-
- -- insert order items --
-INSERT INTO order_items(order_id,order_product_id,qty,order_product_inventory_id,order_delivery_id)
-VALUES(1,1,5,1,1);
-
-INSERT INTO order_items(order_id,order_product_id,qty,order_product_inventory_id,order_delivery_id)
-VALUES(2,2,6,2,2);
-
-INSERT INTO order_items(order_id,order_product_id,qty,order_product_inventory_id,order_delivery_id)
-VALUES(3,3,3,3,3);
-
-INSERT INTO order_items(order_id,order_product_id,qty,order_product_inventory_id,order_delivery_id)
-VALUES(4,4,5,4,4);
-
-INSERT INTO order_items(order_id,order_product_id,qty,order_product_inventory_id,order_delivery_id)
-VALUES(5,1,6,1,5);
-
-INSERT INTO order_items(order_id,order_product_id,qty,order_product_inventory_id,order_delivery_id)
-VALUES(6,2,7,2,6);
-
-
  -- drop order_product_inventory table to recreate --
 DROP TABLE IF EXISTS order_product_inventory;
 
@@ -520,9 +482,9 @@ CREATE TABLE order_product_inventory (
 	initial_qty		DECIMAL(15,2)		NOT NULL,
 	current_qty		DECIMAL(15,2)		NOT NULL,
 	current_price	DECIMAL(15,2)		NOT NULL,
-	sale_price		DECIMAL(15,2)		NOT NULL,
-	created_date		TIMESTAMP		NOT NULL,
-	modified_date		TIMESTAMP		NOT NULL,
+	sale_price		DECIMAL(15,2)		NULL,
+	created_date		TIMESTAMP		NULL,
+	modified_date		TIMESTAMP		NULL,
 
 	PRIMARY KEY(order_product_inventory_id)
 );
@@ -553,8 +515,8 @@ CREATE TABLE order_delivery (
 	expected_delivery_time	DATE 		NOT NULL,
 	actual_delivery_date	DATE 		NOT NULL,	
 	order_id				INT			NOT NULL,	
-	created_date		TIMESTAMP		NOT NULL,
-	modified_date		TIMESTAMP		NOT NULL,
+	created_date		TIMESTAMP		NULL,
+	modified_date		TIMESTAMP		NULL,
 
 	PRIMARY KEY(order_delivery_id),
 	FOREIGN KEY (order_id) REFERENCES c_order(order_id)
@@ -562,22 +524,22 @@ CREATE TABLE order_delivery (
 
 
  -- insert into order deliery YYYY-MM-DD
-INSERT INTO order_delivery(carrier,tracking_number,expected_delivery_date,actual_delivery_date,order_id)
+INSERT INTO order_delivery(carrier,tracking_number,expected_delivery_time,actual_delivery_date,order_id)
 VALUES('Fedex','12345473872','2023-02-25','2023-02-25',1);
 
-INSERT INTO order_delivery(carrier,tracking_number,expected_delivery_date,actual_delivery_date,order_id)
+INSERT INTO order_delivery(carrier,tracking_number,expected_delivery_time,actual_delivery_date,order_id)
 VALUES('UPS','188943ge2893','2023-03-01','2023-03-05',2);
 
-INSERT INTO order_delivery(carrier,tracking_number,expected_delivery_date,actual_delivery_date,order_id)
+INSERT INTO order_delivery(carrier,tracking_number,expected_delivery_time,actual_delivery_date,order_id)
 VALUES('Fedex','123723uio42','2023-02-16','2023-02-18',3);
 
-INSERT INTO order_delivery(carrier,tracking_number,expected_delivery_date,actual_delivery_date,order_id)
+INSERT INTO order_delivery(carrier,tracking_number,expected_delivery_time,actual_delivery_date,order_id)
 VALUES('UPS','123194u5p82632','2023-04-01','2023-04-14',4);
 
-INSERT INTO order_delivery(carrier,tracking_number,expected_delivery_date,actual_delivery_date,order_id)
+INSERT INTO order_delivery(carrier,tracking_number,expected_delivery_time,actual_delivery_date,order_id)
 VALUES('UPS','2342546456','2023-01-30','2023-02-05',5);
 
-INSERT INTO order_delivery(carrier,tracking_number,expected_delivery_date,actual_delivery_date,order_id)
+INSERT INTO order_delivery(carrier,tracking_number,expected_delivery_time,actual_delivery_date,order_id)
 VALUES('Fedex','424234253','2023-04-26','2023-04-26',6);
 
  -- drop order_product table to recreate --
@@ -589,8 +551,8 @@ CREATE TABLE order_product (
 	product_name			VARCHAR(75)			NOT NULL,
 	product_description		VARCHAR(75)			NOT NULL,
 	order_product_inventory_id	INT			NOT NULL,
-	created_date		TIMESTAMP		NOT NULL,
-	modified_date		TIMESTAMP		NOT NULL,
+	created_date		TIMESTAMP		NULL,
+	modified_date		TIMESTAMP		NULL,
 
 	PRIMARY KEY(order_product_id)
 );
@@ -607,6 +569,47 @@ VALUES('Chablis','Chablis wine',3);
 
 INSERT INTO order_product(product_name,product_description,order_product_inventory_id)
 VALUES('Chardonnay','Chardonnay wine',4);
+
+
+ -- drop order_items table to recreate --
+DROP TABLE IF EXISTS order_items;
+
+    -- create the order items table 
+CREATE TABLE order_items (
+	order_items_id			INT 		NOT NULL		AUTO_INCREMENT,
+	order_id				INT			NOT NULL,
+	order_product_id		INT			NOT NULL,
+	qty						INT 		NOT NULL,
+	order_product_inventory_id	INT			NOT NULL,
+	order_delivery_id				INT 		NOT NULL,
+	created_date		TIMESTAMP		NULL,
+	modified_date		TIMESTAMP		NULL,
+
+	PRIMARY KEY(order_items_id),
+	FOREIGN KEY (order_id) REFERENCES c_order(order_id),
+	FOREIGN KEY (order_product_id) REFERENCES order_product(order_product_id),
+	FOREIGN KEY (order_product_inventory_id) REFERENCES order_product_inventory(order_product_inventory_id),
+	FOREIGN KEY (order_delivery_id) REFERENCES order_delivery(order_delivery_id)
+);
+
+ -- insert order items --
+INSERT INTO order_items(order_id,order_product_id,qty,order_product_inventory_id,order_delivery_id)
+VALUES(1,1,5,1,1);
+
+INSERT INTO order_items(order_id,order_product_id,qty,order_product_inventory_id,order_delivery_id)
+VALUES(2,2,6,2,2);
+
+INSERT INTO order_items(order_id,order_product_id,qty,order_product_inventory_id,order_delivery_id)
+VALUES(3,3,3,3,3);
+
+INSERT INTO order_items(order_id,order_product_id,qty,order_product_inventory_id,order_delivery_id)
+VALUES(4,4,5,4,4);
+
+INSERT INTO order_items(order_id,order_product_id,qty,order_product_inventory_id,order_delivery_id)
+VALUES(5,1,6,1,5);
+
+INSERT INTO order_items(order_id,order_product_id,qty,order_product_inventory_id,order_delivery_id)
+VALUES(6,2,7,2,6);
 
 
 
